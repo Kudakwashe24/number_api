@@ -6,15 +6,65 @@
     <title>Number APIs</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="css/main.css" />
-    <script src="main.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <!-- <script src="main.js"></script> -->
+    <style>
+    #fact {
+        display: none;
+    }
+    </style>
 </head>
 <body>
     
-    <script src="js/main.js"></script>
+    <section class="bg-dark">
+        <article class="container">
+            <aside class="row">
+                <div class="col-md mx-auto">
+                    <div class="card bg-primary text-white mt-5 p-4">
+                        <h1>Enter a number and see the facts</h1>
+
+                        <input type="number" class="form-control form-control-lg" id="numberInput" placeholder="Enter any number....">
+
+                        <div id="fact" class="card-body">
+
+                            <h4 class="card-title"> Number Fact </h4>
+
+                            <p id="factText" class="card-text"></p>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+        </article>
+
+    </section>
+
+
+    <script>
+    let fact = document.querySelector('#fact');
+    let factText = document.querySelector('#factText');
+
+    let numberInput = document.querySelector('#numberInput');
+    numberInput.addEventListener('input', getFactAjax);
+
+    function getFactAjax(){
+    let number = numberInput.nodeValue;
+
+    let xhr = new XMLHttpRequest();
+    xhr.open('GET', 'http://numbersapi.com/' +number);
+
+    xhr.onload = function(){
+        if(this.status == 200 && number != ''){
+            fact.style.display = 'block';
+            factText.innerText = this.responseText;
+        }
+    }
+    xhr.send();
+}
+    </script>
     
-    <script
+    <!-- <script
     src="https://code.jquery.com/jquery-3.3.1.js"
     integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
-    crossorigin="anonymous"></script>
+    crossorigin="anonymous"></script> -->
 </body>
 </html>
